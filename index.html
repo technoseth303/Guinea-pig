@@ -3,91 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>RTsss & Pigssss Party 🍎🧀</title>
-<style>
-    body {
-        margin: 0;
-        font-family: "Comic Sans MS", cursive, sans-serif;
-        background: #111;
-        color: #eee;
-        overflow: hidden;
-        position: relative;
-    }
-
-    header {
-        padding: 30px;
-        background: linear-gradient(45deg, #222, #444);
-        text-align: center;
-        box-shadow: 0 0 20px #000;
-    }
-
-    h1 {
-        font-size: 3em;
-        margin: 0;
-    }
-
-    section {
-        padding: 20px;
-        max-width: 800px;
-        margin: auto;
-    }
-
-    .card {
-        background: #1e1e1e;
-        margin: 20px 0;
-        padding: 20px;
-        border-radius: 15px;
-        box-shadow: 0 0 10px #000;
-    }
-
-    button {
-        background: #444;
-        color: white;
-        border: none;
-        padding: 15px 25px;
-        border-radius: 10px;
-        cursor: pointer;
-        font-size: 1em;
-        transition: 0.2s;
-    }
-
-    button:hover {
-        background: #666;
-        transform: scale(1.05);
-    }
-
-    footer {
-        padding: 15px;
-        font-size: 0.8em;
-        opacity: 0.6;
-        text-align: center;
-    }
-
-    /* Animal styling */
-    .animal {
-        position: absolute;
-        font-size: 2em;
-        user-select: none;
-    }
-
-    .falling {
-        position: absolute;
-        font-size: 1.5em;
-        user-select: none;
-        pointer-events: none;
-        animation: fall linear forwards;
-    }
-
-    @keyframes wiggle {
-        0% { transform: rotate(-10deg); }
-        50% { transform: rotate(10deg); }
-        100% { transform: rotate(-10deg); }
-    }
-
-    @keyframes fall {
-        0% { top: -30px; }
-        100% { top: 110vh; }
-    }
-</style>
+<link rel="stylesheet" href="style.css?v=1">
 </head>
 <body>
 
@@ -104,7 +20,7 @@
 
     <div class="card">
         <h2>Skills</h2>
-        <ul style="list-style:none; padding:0;">
+        <ul class="skills">
             <li>🐀 Cheese detection</li>
             <li>🐀 Scurrying at high speed</li>
             <li>🐷 Mud rolling</li>
@@ -115,7 +31,7 @@
 
     <div class="card">
         <h2>Press the Button</h2>
-        <button onclick="addAnimals()">Add More Chaos!</button>
+        <button id="chaosBtn">Add More Chaos!</button>
         <p id="output"></p>
     </div>
 </section>
@@ -124,78 +40,6 @@
     <p>© RTsss & Pigssss Industries</p>
 </footer>
 
-<script>
-const animals = [];
-const bodyWidth = window.innerWidth;
-
-// Create animals
-function createAnimal(emoji) {
-    const elem = document.createElement("div");
-    elem.className = "animal";
-    elem.innerText = emoji;
-    elem.style.left = Math.random() * (bodyWidth - 50) + "px";
-    elem.style.top = Math.random() * (window.innerHeight - 50) + "px";
-    elem.style.animation = "wiggle " + (1 + Math.random() * 2) + "s infinite";
-    document.body.appendChild(elem);
-
-    animals.push({
-        element: elem,
-        x: parseFloat(elem.style.left),
-        y: parseFloat(elem.style.top),
-        dx: (Math.random() - 0.5) * 4,
-        dy: (Math.random() - 0.5) * 4
-    });
-}
-
-// Add initial animals
-for(let i=0;i<5;i++) createAnimal("🐀");
-for(let i=0;i<5;i++) createAnimal("🐷");
-
-// Animate bouncing animals
-function animate() {
-    animals.forEach(a => {
-        a.x += a.dx;
-        a.y += a.dy;
-        if(a.x < 0 || a.x > window.innerWidth - 50) a.dx *= -1;
-        if(a.y < 0 || a.y > window.innerHeight - 50) a.dy *= -1;
-        a.element.style.left = a.x + "px";
-        a.element.style.top = a.y + "px";
-    });
-    requestAnimationFrame(animate);
-}
-animate();
-
-// Add animals on button press
-function addAnimals() {
-    const messages = [
-        "RTSSS!!! More rats!",
-        "OINK OINK!!! Mud everywhere!",
-        "Cheese and apples acquired!",
-        "Chaos level over 9000!",
-        "Rats and pigs unite!"
-    ];
-    const random = messages[Math.floor(Math.random() * messages.length)];
-    document.getElementById("output").innerText = random;
-
-    for(let i=0;i<3;i++) createAnimal(Math.random() > 0.5 ? "🐀" : "🐷");
-}
-
-// Falling cheese and apples
-function spawnFalling() {
-    const food = document.createElement("div");
-    food.className = "falling";
-    food.innerText = Math.random() > 0.5 ? "🧀" : "🍎";
-    food.style.left = Math.random() * (window.innerWidth - 30) + "px";
-    food.style.fontSize = (15 + Math.random()*20) + "px";
-    food.style.animationDuration = (3 + Math.random()*3) + "s";
-    document.body.appendChild(food);
-
-    setTimeout(()=>food.remove(), 6000);
-}
-
-// Continuously spawn falling items
-setInterval(spawnFalling, 500);
-</script>
-
+<script src="script.js?v=1"></script>
 </body>
 </html>
